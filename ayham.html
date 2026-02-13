@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayham Megdadi · Cybersecurity & Cloud Executive</title>
+
+  <!-- 
+    ═══════════════════════════════════════════════════════
+    🔐 SECURITY HEADERS – BEST PRACTICES (COMMENT ONLY)
+    ═══════════════════════════════════════════════════════
+    Content Security Policy: 
+      default-src 'self'; 
+      script-src 'unsafe-inline' cdn.tailwindcss.com cdnjs.cloudflare.com fonts.googleapis.com; 
+      style-src 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com cdn.tailwindcss.com;
+      font-src fonts.gstatic.com cdnjs.cloudflare.com;
+      img-src 'self' data: https:;
+    Strict-Transport-Security: max-age=31536000; includeSubDomains
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: strict-origin-when-cross-origin
+    This portfolio is designed with OWASP secure headers in mind.
+  -->
+
+  <!-- Tailwind with dark mode class strategy -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fonts: Inter (EN) + Tajawal (AR) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    /* ---------- DARK MODE CUSTOM VARIABLES ---------- */
+    :root {
+      --accent-light: #2563eb;
+      --accent-dark: #38bdf8;
+      --accent-soft-light: #dbeafe;
+      --accent-soft-dark: #1e3a5f;
+    }
+    html.dark {
+      color-scheme: dark;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    }
+    /* Arabic font */
+    body.lang-ar {
+      font-family: 'Tajawal', sans-serif;
+    }
+    /* Skill badges – light/dark using custom properties */
+    .skill-badge {
+      background-color: var(--accent-soft-light);
+      color: var(--accent-light);
+      padding: 0.2rem 0.7rem;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      display: inline-block;
+      margin: 0.2rem;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+    .dark .skill-badge {
+      background-color: var(--accent-soft-dark);
+      color: var(--accent-dark);
+    }
+    .skill-badge:hover {
+      border-color: var(--accent-light);
+      transform: translateY(-1px);
+    }
+    .dark .skill-badge:hover {
+      border-color: var(--accent-dark);
+    }
+    /* Timeline dot */
+    .timeline-dot {
+      width: 16px;
+      height: 16px;
+      background-color: var(--accent-light);
+      border-radius: 50%;
+      position: absolute;
+      left: -8px;
+      top: 6px;
+    }
+    .dark .timeline-dot {
+      background-color: var(--accent-dark);
+    }
+    /* Language toggle visibility */
+    .lang-ar, .lang-en {
+      transition: opacity 0.15s;
+    }
+    body.lang-ar .lang-en,
+    body.lang-en .lang-ar {
+      display: none;
+    }
+    body.lang-ar .lang-ar,
+    body.lang-en .lang-en {
+      display: block;
+    }
+    body.lang-ar {
+      direction: rtl;
+    }
+    /* Container */
+    .container-custom {
+      max-width: 1280px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    /* Navbar blur – using Tailwind classes for background, but keep backdrop */
+    .sticky-nav {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    /* Card hover */
+    .hover-card {
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .hover-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px -8px rgba(0,0,0,0.08);
+      border-color: var(--accent-light) !important;
+    }
+    .dark .hover-card:hover {
+      border-color: var(--accent-dark) !important;
+    }
+    /* Toolstack icons */
+    .tool-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      background-color: var(--accent-soft-light);
+      color: var(--accent-light);
+      border-radius: 0.75rem;
+      margin: 0.25rem;
+      transition: 0.2s;
+      font-size: 0.9rem;
+    }
+    .dark .tool-icon {
+      background-color: var(--accent-soft-dark);
+      color: var(--accent-dark);
+    }
+    .tool-icon:hover {
+      transform: scale(1.05);
+      background-color: var(--accent-light);
+      color: white;
+    }
+    .dark .tool-icon:hover {
+      background-color: var(--accent-dark);
+      color: black;
+    }
+    /* Terminal cursor */
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.2em;
+      background-color: var(--accent-light);
+      vertical-align: middle;
+      margin-left: 4px;
+      animation: blink 1s step-end infinite;
+    }
+    .dark .cursor {
+      background-color: var(--accent-dark);
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900 dark:bg-[#0b1120] dark:text-gray-100 lang-en" id="app-body">
+  <!-- ========== STICKY NAVBAR ========== -->
+  <nav class="sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800 sticky-nav bg-white/70 dark:bg-[#0b1120]/70">
+    <div class="container-custom flex justify-between items-center py-4">
+      <div class="text-xl font-bold tracking-tight">
+        <span class="text-blue-600 dark:text-cyan-400">A.</span> Megdadi
+      </div>
+      <div class="flex items-center gap-3">
+        <!-- Theme toggle -->
+        <button id="themeToggle" class="p-2 rounded-full hover:bg-blue-100 dark:hover:bg-gray-800 transition" aria-label="Toggle theme">
+          <i id="themeIcon" class="fas fa-moon text-lg text-gray-700 dark:text-gray-300"></i>
+        </button>
+        <!-- Language toggle -->
+        <button id="langToggle" class="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 bg-white/70 dark:bg-gray-900/70 text-sm font-medium hover:bg-blue-50 dark:hover:bg-gray-800 transition">
+          <i class="fas fa-globe text-blue-600 dark:text-cyan-400"></i>
+          <span id="langLabel" class="text-gray-900 dark:text-gray-100">English</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container-custom py-8 md:py-12">
+    <!-- ========== HERO SECTION with TERMINAL EFFECT ========== -->
+    <!-- English Hero -->
+    <div class="lang-en">
+      <div class="flex flex-col md:flex-row gap-10 items-center md:items-start">
+        <!-- Photo -->
+        <div class="flex-shrink-0">
+          <div class="w-36 h-36 md:w-44 md:h-44 rounded-full ring-4 ring-blue-500/30 ring-offset-4 ring-offset-white dark:ring-offset-[#0b1120] overflow-hidden shadow-2xl">
+            <img src="https://via.placeholder.com/200x200?text=Your+Photo" alt="Ayham Megdadi" class="w-full h-full object-cover">
+          </div>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center opacity-60">⬆️ replace with your photo</p>
+        </div>
+        <!-- Bio + Terminal -->
+        <div class="flex-1">
+          <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight text-gray-900 dark:text-white">
+            Ayham Belal<br>Megdadi
+          </h1>
+          <p class="text-xl md:text-2xl font-medium text-blue-600 dark:text-cyan-400 mt-2">
+            Cybersecurity & Cloud Computing Specialist
+          </p>
+          <!-- Terminal – now with proper light/dark mode -->
+          <div class="mt-6 bg-gray-100 dark:bg-gray-900 border-l-4 border-blue-600 dark:border-cyan-400 rounded-lg p-4 font-mono text-sm md:text-base shadow-md">
+            <span class="text-green-600 dark:text-green-400">$</span> whoami
+            <span class="cursor"></span>
+            <div class="mt-2 text-blue-700 dark:text-cyan-300 font-bold">
+              > Ayham Megdadi – Executive Director @ CSSG Jordan / Cloud Security Engineer
+            </div>
+          </div>
+          <p class="text-lg text-gray-600 dark:text-gray-400 mt-4 max-w-2xl leading-relaxed">
+            Executive Director of <span class="font-semibold text-blue-600 dark:text-cyan-400">CSSG Jordan</span>. 
+            I protect systems, analyze threats, and build secure, scalable cloud infrastructures.
+          </p>
+          <div class="flex flex-wrap gap-4 mt-6">
+            <a href="#contact" class="bg-blue-600 dark:bg-cyan-500 text-white px-6 py-3 rounded-full font-medium hover:opacity-90 transition shadow-lg shadow-blue-500/30 dark:shadow-cyan-500/30 flex items-center gap-2">
+              <i class="fas fa-envelope"></i> Contact me
+            </a>
+            <a href="https://github.com/Ayham-Megdadi" target="_blank" class="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-6 py-3 rounded-full font-medium hover:bg-blue-50 dark:hover:bg-gray-800 transition flex items-center gap-2">
+              <i class="fab fa-github text-gray-700 dark:text-gray-300"></i> GitHub
+            </a>
+            <a href="#" class="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-6 py-3 rounded-full font-medium hover:bg-blue-50 dark:hover:bg-gray-800 transition flex items-center gap-2">
+              <i class="fas fa-file-pdf text-blue-600 dark:text-cyan-400"></i> CV
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Arabic Hero -->
+    <div class="lang-ar">
+      <div class="flex flex-col md:flex-row gap-10 items-center md:items-start">
+        <!-- Photo -->
+        <div class="flex-shrink-0">
+          <div class="w-36 h-36 md:w-44 md:h-44 rounded-full ring-4 ring-blue-500/30 ring-offset-4 ring-offset-white dark:ring-offset-[#0b1120] overflow-hidden shadow-2xl">
+            <img src="https://via.placeholder.com/200x200?text=صورتك" alt="أيهم مقدادي" class="w-full h-full object-cover">
+          </div>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center opacity-60">⬆️ استبدل الصورة</p>
+        </div>
+        <div class="flex-1">
+          <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight text-gray-900 dark:text-white">
+            أيهم بلال<br>مقدادي
+          </h1>
+          <p class="text-xl md:text-2xl font-medium text-blue-600 dark:text-cyan-400 mt-2">
+            متخصص في الأمن السيبراني والحوسبة السحابية
+          </p>
+          <!-- Terminal Arabic -->
+          <div class="mt-6 bg-gray-100 dark:bg-gray-900 border-l-4 border-blue-600 dark:border-cyan-400 rounded-lg p-4 font-mono text-sm md:text-base shadow-md">
+            <span class="text-green-600 dark:text-green-400">$</span> whoami
+            <span class="cursor"></span>
+            <div class="mt-2 text-blue-700 dark:text-cyan-300 font-bold">
+              > أيهم مقدادي – مدير تنفيذي @ CSSG الأردن / مهندس أمن سحابي
+            </div>
+          </div>
+          <p class="text-lg text-gray-600 dark:text-gray-400 mt-4 max-w-2xl leading-relaxed">
+            مدير تنفيذي لـ <span class="font-semibold text-blue-600 dark:text-cyan-400">CSSG الأردن</span>. 
+            شغوف بحماية الأنظمة، تحليل التهديدات، وبناء بنى تحتية سحابية آمنة وقابلة للتوسع.
+          </p>
+          <div class="flex flex-wrap gap-4 mt-6">
+            <a href="#contact" class="bg-blue-600 dark:bg-cyan-500 text-white px-6 py-3 rounded-full font-medium hover:opacity-90 transition shadow-lg shadow-blue-500/30 dark:shadow-cyan-500/30 flex items-center gap-2">
+              <i class="fas fa-envelope"></i> تواصل معي
+            </a>
+            <a href="https://github.com/Ayham-Megdadi" target="_blank" class="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-6 py-3 rounded-full font-medium hover:bg-blue-50 dark:hover:bg-gray-800 transition flex items-center gap-2">
+              <i class="fab fa-github text-gray-700 dark:text-gray-300"></i> GitHub
+            </a>
+            <a href="#" class="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-6 py-3 rounded-full font-medium hover:bg-blue-50 dark:hover:bg-gray-800 transition flex items-center gap-2">
+              <i class="fas fa-file-pdf text-blue-600 dark:text-cyan-400"></i> السيرة
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== STATS COUNTER ========== -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
+      <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-2xl border border-gray-200 dark:border-gray-800 text-center hover-card">
+        <div class="text-3xl font-bold text-blue-600 dark:text-cyan-400">22+</div>
+        <div class="lang-en text-sm text-gray-600 dark:text-gray-400">Certifications</div>
+        <div class="lang-ar text-sm text-gray-600 dark:text-gray-400">شهادة</div>
+      </div>
+      <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-2xl border border-gray-200 dark:border-gray-800 text-center hover-card">
+        <div class="text-3xl font-bold text-blue-600 dark:text-cyan-400">6+</div>
+        <div class="lang-en text-sm text-gray-600 dark:text-gray-400">Projects</div>
+        <div class="lang-ar text-sm text-gray-600 dark:text-gray-400">مشروع</div>
+      </div>
+      <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-2xl border border-gray-200 dark:border-gray-800 text-center hover-card">
+        <div class="text-3xl font-bold text-blue-600 dark:text-cyan-400">3+</div>
+        <div class="lang-en text-sm text-gray-600 dark:text-gray-400">Years Exp</div>
+        <div class="lang-ar text-sm text-gray-600 dark:text-gray-400">سنوات خبرة</div>
+      </div>
+      <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-2xl border border-gray-200 dark:border-gray-800 text-center hover-card">
+        <div class="text-3xl font-bold text-blue-600 dark:text-cyan-400">10+</div>
+        <div class="lang-en text-sm text-gray-600 dark:text-gray-400">Events</div>
+        <div class="lang-ar text-sm text-gray-600 dark:text-gray-400">فعالية</div>
+      </div>
+    </div>
+
+    <!-- ========== ABOUT SECTION ========== -->
+    <section class="mt-20">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-bold inline-block border-b-4 border-blue-600 dark:border-cyan-400 pb-2 px-4 text-gray-900 dark:text-white">📋 About</h2>
+      </div>
+      <!-- English About -->
+      <div class="lang-en bg-gray-50 dark:bg-gray-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 hover-card">
+        <div class="prose prose-lg max-w-none text-gray-600 dark:text-gray-400">
+          <p class="text-xl font-medium text-blue-600 dark:text-cyan-400">I am a Cybersecurity and Cloud Computing specialist with <span class="font-bold">hands‑on experience</span> in vulnerability assessment, penetration testing, and securing digital infrastructures.</p>
+          <p class="mt-4">As <span class="font-semibold text-blue-600 dark:text-cyan-400">Executive Director of CSSG in Jordan</span>, I lead educational and technical initiatives that empower over 500 students with cybersecurity awareness and practical skills. I also serve as College Representative for five IT departments at Ajloun National University, bridging faculty and students.</p>
+          <p class="mt-4">My deep interests span <strong>cyber defense, offensive security, threat analysis, cloud architecture, tech event management, and professional design</strong>. I believe security is not optional — it is essential.</p>
+        </div>
+      </div>
+      <!-- Arabic About -->
+      <div class="lang-ar bg-gray-50 dark:bg-gray-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 hover-card">
+        <div class="prose prose-lg max-w-none text-gray-600 dark:text-gray-400">
+          <p class="text-xl font-medium text-blue-600 dark:text-cyan-400">أنا متخصص في الأمن السيبراني والحوسبة السحابية مع <span class="font-bold">خبرة عملية</span> في تحليل الثغرات، اختبار الاختراق، وتأمين البنية التحتية الرقمية.</p>
+          <p class="mt-4">بصفتي <span class="font-semibold text-blue-600 dark:text-cyan-400">مديراً تنفيذياً لـ CSSG الأردن</span>، أقود مبادرات تعليمية وتقنية تمكّن أكثر من 500 طالب من رفع الوعي السيبراني واكتساب المهارات العملية. كما أعمل كممثل لكليات تكنولوجيا المعلومات في جامعة عجلون الوطنية، وأساهم في تطوير البرامج الأكاديمية والأنشطة الطلابية.</p>
+          <p class="mt-4">أهتمّ بعمق بـ <strong>الدفاع السيبراني، الأمن الهجومي، تحليل التهديدات، البنى السحابية، إدارة الفعاليات التقنية، والتصميم الاحترافي</strong>. أؤمن بأن الأمن ليس خياراً بل ضرورة.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CORE DOMAINS ========== -->
+    <section class="mt-20">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-bold inline-block border-b-4 border-blue-600 dark:border-cyan-400 pb-2 px-4 text-gray-900 dark:text-white">🎯 Core Domains</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Cybersecurity -->
+        <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card flex flex-col items-center text-center">
+          <i class="fas fa-shield-haltered text-4xl text-blue-600 dark:text-cyan-400 mb-3"></i>
+          <h3 class="font-bold text-lg text-gray-900 dark:text-white">Cybersecurity</h3>
+          <div class="lang-en text-sm text-gray-600 dark:text-gray-400 mt-1">Ethical Hacking, Pentesting, SOC, Threat Intel</div>
+          <div class="lang-ar text-sm text-gray-600 dark:text-gray-400 mt-1">الاختراق الأخلاقي، اختبار الاختراق، عمليات SOC، استخبارات التهديدات</div>
+        </div>
+        <!-- Cloud Computing -->
+        <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card flex flex-col items-center text-center">
+          <i class="fas fa-cloud text-4xl text-blue-600 dark:text-cyan-400 mb-3"></i>
+          <h3 class="font-bold text-lg text-gray-900 dark:text-white">Cloud Computing</h3>
+          <div class="lang-en text-sm text-gray-600 dark:text-gray-400 mt-1">AWS, Azure, IAM, Security Groups, Docker</div>
+          <div class="lang-ar text-sm text-gray-600 dark:text-gray-400 mt-1">AWS، Azure، IAM، مجموعات الأمان، Docker</div>
+        </div>
+        <!-- Management & Events -->
+        <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card flex flex-col items-center text-center">
+          <i class="fas fa-users text-4xl text-blue-600 dark:text-cyan-400 mb-3"></i>
+          <h3 class="font-bold text-lg text-gray-900 dark:text-white">Management & Events</h3>
+          <div class="lang-en text-sm text-gray-600 dark:text-gray-400 mt-1">Community Leadership, Workshop Coordination</div>
+          <div class="lang-ar text-sm text-gray-600 dark:text-gray-400 mt-1">قيادة مجتمعية، تنسيق ورش العمل</div>
+        </div>
+        <!-- Design -->
+        <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card flex flex-col items-center text-center">
+          <i class="fas fa-paint-brush text-4xl text-blue-600 dark:text-cyan-400 mb-3"></i>
+          <h3 class="font-bold text-lg text-gray-900 dark:text-white">Design</h3>
+          <div class="lang-en text-sm text-gray-600 dark:text-gray-400 mt-1">Logo, Brand Identity, Technical Presentations</div>
+          <div class="lang-ar text-sm text-gray-600 dark:text-gray-400 mt-1">شعارات، هوية بصرية، عروض تقنية</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TECHNICAL SKILLS ========== -->
+    <section class="mt-20">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-bold inline-block border-b-4 border-blue-600 dark:border-cyan-400 pb-2 px-4 text-gray-900 dark:text-white">⚙️ Technical Skills</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Advanced Cybersecurity -->
+        <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card">
+          <div class="flex items-center gap-3 mb-3">
+            <i class="fas fa-shield-virus text-2xl text-blue-600 dark:text-cyan-400"></i>
+            <h3 class="font-bold text-lg text-gray-900 dark:text-white">Advanced Cybersecurity</h3>
+          </div>
+          <div class="flex flex-wrap">
+            <span class="skill-badge">Network Pentesting</span>
+            <span class="skill-badge">Web App Testing</span>
+            <span class="skill-badge">Active Directory</span>
+            <span class="skill-badge">SIEM Analysis</span>
+            <span class="skill-badge">Malware Analysis</span>
+            <span class="skill-badge">Digital Forensics</span>
+            <span class="skill-badge">Firewall/IDS/IPS</span>
+            <span class="skill-badge">Risk Assessment</span>
+            <span class="skill-badge">Compliance</span>
+          </div>
+        </div>
+        <!-- Cloud & Infrastructure -->
+        <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card">
+          <div class="flex items-center gap-3 mb-3">
+            <i class="fas fa-cloud-upload-alt text-2xl text-blue-600 dark:text-cyan-400"></i>
+            <h3 class="font-bold text-lg text-gray-900 dark:text-white">Cloud & Infrastructure</h3>
+          </div>
+          <div class="flex flex-wrap">
+            <span class="skill-badge">Linux Admin</span>
+            <span class="skill-badge">Windows Server</span>
+            <span class="skill-badge">VM Deployment</span>
+            <span class="skill-badge">Cloud Security</span>
+            <span class="skill-badge">IAM</span>
+            <span class="skill-badge">Docker</span>
+            <span class="skill-badge">Monitoring</span>
+            <span class="skill-badge">Backup/DR</span>
+          </div>
+        </div>
+        <!-- Leadership & Management -->
+        <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card">
+          <div class="flex items-center gap-3 mb-3">
+            <i class="fas fa-user-tie text-2xl text-blue-600 dark:text-cyan-400"></i>
+            <h3 class="font-bold text-lg text-gray-900 dark:text-white">Leadership</h3>
+          </div>
+          <div class="flex flex-wrap">
+            <span class="skill-badge">Strategic Planning</span>
+            <span class="skill-badge">Team Leadership</span>
+            <span class="skill-badge">Project Management</span>
+            <span class="skill-badge">Technical Mentorship</span>
+            <span class="skill-badge">Public Speaking</span>
+          </div>
+        </div>
+        <!-- Offensive & Defense -->
+        <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card">
+          <div class="flex items-center gap-3 mb-3">
+            <i class="fas fa-bug text-2xl text-blue-600 dark:text-cyan-400"></i>
+            <h3 class="font-bold text-lg text-gray-900 dark:text-white">Offensive & Defense</h3>
+          </div>
+          <div class="flex flex-wrap">
+            <span class="skill-badge">Penetration Testing</span>
+            <span class="skill-badge">Vulnerability Assessment</span>
+            <span class="skill-badge">Threat Hunting</span>
+            <span class="skill-badge">Incident Response</span>
+            <span class="skill-badge">SOC Operations</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TOOLSTACK – الأدوات ========== -->
+    <section class="mt-20">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-bold inline-block border-b-4 border-blue-600 dark:border-cyan-400 pb-2 px-4 text-gray-900 dark:text-white">🛠️ Toolstack</h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-2">Operating Systems, Security Tools & Cloud</p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3">
+        <!-- OS -->
+        <span class="tool-icon"><i class="fab fa-linux mr-1"></i> Kali</span>
+        <span class="tool-icon"><i class="fas fa-feather mr-1"></i> Parrot</span>
+        <span class="tool-icon"><i class="fab fa-ubuntu mr-1"></i> Ubuntu</span>
+        <!-- Security Tools -->
+        <span class="tool-icon"><i class="fas fa-bolt mr-1"></i> Burp Suite</span>
+        <span class="tool-icon"><i class="fas fa-bug mr-1"></i> Metasploit</span>
+        <span class="tool-icon"><i class="fas fa-network-wired mr-1"></i> Wireshark</span>
+        <span class="tool-icon"><i class="fas fa-search mr-1"></i> Nmap</span>
+        <!-- Cloud & IaC -->
+        <span class="tool-icon"><i class="fas fa-cloud mr-1"></i> AWS</span>
+        <span class="tool-icon"><i class="fab fa-docker mr-1"></i> Docker</span>
+        <span class="tool-icon"><i class="fas fa-code mr-1"></i> Terraform</span>
+      </div>
+    </section>
+
+    <!-- ========== CERTIFICATIONS & LICENSES – مع فلترة ========== -->
+    <section class="mt-20">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-bold inline-block border-b-4 border-blue-600 dark:border-cyan-400 pb-2 px-4 text-gray-900 dark:text-white">📜 Certifications & Licenses</h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-2">22 professional credentials – each with a unique badge</p>
+      </div>
+      <div id="cert-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      <div id="showMoreContainer" class="text-center mt-8">
+        <button id="showMoreCerts" class="bg-blue-600 dark:bg-cyan-500 text-white px-8 py-3 rounded-full font-medium hover:opacity-90 transition shadow-lg inline-flex items-center gap-2">
+          <i class="fas fa-arrow-down"></i>
+          <span class="lang-en">Show 16 More Certifications</span>
+          <span class="lang-ar">عرض 16 شهادة أخرى</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ========== EXPERIENCE – TIMELINE ========== -->
+    <section class="mt-20">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-bold inline-block border-b-4 border-blue-600 dark:border-cyan-400 pb-2 px-4 text-gray-900 dark:text-white">💼 Experience</h2>
+      </div>
+      <div class="relative">
+        <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-blue-200 dark:bg-gray-700"></div>
+        <div class="space-y-8">
+          <!-- CSSG Executive Director -->
+          <div class="flex flex-col md:flex-row gap-4 md:gap-8 relative">
+            <div class="md:w-1/2 md:text-right pr-0 md:pr-8">
+              <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card">
+                <div class="flex items-center gap-3 md:justify-end">
+                  <i class="fas fa-crown text-2xl text-blue-600 dark:text-cyan-400"></i>
+                  <h3 class="font-bold text-lg text-gray-900 dark:text-white">CSSG Jordan – Executive Director</h3>
+                </div>
+                <span class="inline-block mt-2 text-sm text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 px-3 py-1 rounded-full">Mar 2025 – Dec 2025</span>
+                <div class="lang-en mt-3 text-gray-600 dark:text-gray-400">Led strategic direction, oversaw 6 departments, launched 10+ initiatives, impacted 500+ students.</div>
+                <div class="lang-ar mt-3 text-gray-600 dark:text-gray-400">قاد التوجه الاستراتيجي، أشرف على 6 أقسام، أطلق أكثر من 10 مبادرات، أثر على 500+ طالب.</div>
+              </div>
+            </div>
+            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-blue-600 dark:bg-cyan-400 border-4 border-white dark:border-gray-900"></div>
+            <div class="md:w-1/2"></div>
+          </div>
+          <!-- College Representative -->
+          <div class="flex flex-col md:flex-row gap-4 md:gap-8 relative">
+            <div class="md:w-1/2"></div>
+            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-blue-600 dark:bg-cyan-400 border-4 border-white dark:border-gray-900"></div>
+            <div class="md:w-1/2 pl-0 md:pl-8">
+              <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card">
+                <div class="flex items-center gap-3">
+                  <i class="fas fa-university text-2xl text-blue-600 dark:text-cyan-400"></i>
+                  <h3 class="font-bold text-lg text-gray-900 dark:text-white">Ajloun National University – College Representative (IT)</h3>
+                </div>
+                <span class="inline-block mt-2 text-sm text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 px-3 py-1 rounded-full">Sep 2023 – Present</span>
+                <div class="lang-en mt-3 text-gray-600 dark:text-gray-400">Liaison for 5 IT departments, organized interdisciplinary tech events, mentored 50+ students.</div>
+                <div class="lang-ar mt-3 text-gray-600 dark:text-gray-400">حلقة وصل لـ 5 أقسام تقنية، تنظيم فعاليات تقنية متعددة التخصصات، إرشاد 50+ طالب.</div>
+              </div>
+            </div>
+          </div>
+          <!-- IT & Cybersecurity Trainee -->
+          <div class="flex flex-col md:flex-row gap-4 md:gap-8 relative">
+            <div class="md:w-1/2 md:text-right pr-0 md:pr-8">
+              <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card">
+                <div class="flex items-center gap-3 md:justify-end">
+                  <i class="fas fa-server text-2xl text-blue-600 dark:text-cyan-400"></i>
+                  <h3 class="font-bold text-lg text-gray-900 dark:text-white">University Computer Center – IT/Cybersecurity Trainee</h3>
+                </div>
+                <span class="inline-block mt-2 text-sm text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 px-3 py-1 rounded-full">Feb 2024 – Mar 2024</span>
+                <div class="lang-en mt-3 text-gray-600 dark:text-gray-400">Server environments, vulnerability remediation, daily IT workflows.</div>
+                <div class="lang-ar mt-3 text-gray-600 dark:text-gray-400">بيئات السيرفرات، إصلاح الثغرات، سير العمل التقني اليومي.</div>
+              </div>
+            </div>
+            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-blue-600 dark:bg-cyan-400 border-4 border-white dark:border-gray-900"></div>
+            <div class="md:w-1/2"></div>
+          </div>
+          <!-- Cybersecurity Department Representative -->
+          <div class="flex flex-col md:flex-row gap-4 md:gap-8 relative">
+            <div class="md:w-1/2"></div>
+            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-blue-600 dark:bg-cyan-400 border-4 border-white dark:border-gray-900"></div>
+            <div class="md:w-1/2 pl-0 md:pl-8">
+              <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card">
+                <div class="flex items-center gap-3">
+                  <i class="fas fa-shield text-2xl text-blue-600 dark:text-cyan-400"></i>
+                  <h3 class="font-bold text-lg text-gray-900 dark:text-white">Cybersecurity Department Representative</h3>
+                </div>
+                <span class="inline-block mt-2 text-sm text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 px-3 py-1 rounded-full">Mar 2023 – Sep 2023</span>
+                <div class="lang-en mt-3 text-gray-600 dark:text-gray-400">Bridged students & faculty, organized awareness campaigns, peer mentorship.</div>
+                <div class="lang-ar mt-3 text-gray-600 dark:text-gray-400">ربط الطلاب بأعضاء هيئة التدريس، تنظيم حملات توعوية، إرشاد الزملاء.</div>
+              </div>
+            </div>
+          </div>
+          <!-- Field Training (Ma'a Namdi Academy) -->
+          <div class="flex flex-col md:flex-row gap-4 md:gap-8 relative">
+            <div class="md:w-1/2 md:text-right pr-0 md:pr-8">
+              <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card">
+                <div class="flex items-center gap-3 md:justify-end">
+                  <i class="fas fa-graduation-cap text-2xl text-blue-600 dark:text-cyan-400"></i>
+                  <h3 class="font-bold text-lg text-gray-900 dark:text-white">Cybersecurity & Ethical Hacking Field Training</h3>
+                </div>
+                <span class="inline-block mt-2 text-sm text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 px-3 py-1 rounded-full">Oct 2025 – Jan 2026</span>
+                <div class="lang-en mt-3 text-gray-600 dark:text-gray-400">290‑hour intensive: Ethical Hacking with AI, OWASP, Bug Bounty, Pentesting.</div>
+                <div class="lang-ar mt-3 text-gray-600 dark:text-gray-400">٢٩٠ ساعة تدريب مكثف: اختراق أخلاقي مع الذكاء الاصطناعي، OWASP، صيد الثغرات، اختبار الاختراق.</div>
+              </div>
+            </div>
+            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-blue-600 dark:bg-cyan-400 border-4 border-white dark:border-gray-900"></div>
+            <div class="md:w-1/2"></div>
+          </div>
+          <!-- Jordan Cyber Club -->
+          <div class="flex flex-col md:flex-row gap-4 md:gap-8 relative">
+            <div class="md:w-1/2"></div>
+            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-blue-600 dark:bg-cyan-400 border-4 border-white dark:border-gray-900"></div>
+            <div class="md:w-1/2 pl-0 md:pl-8">
+              <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card">
+                <div class="flex items-center gap-3">
+                  <i class="fas fa-calendar-alt text-2xl text-blue-600 dark:text-cyan-400"></i>
+                  <h3 class="font-bold text-lg text-gray-900 dark:text-white">Jordan Cyber Club – Events Coordinator</h3>
+                </div>
+                <span class="inline-block mt-2 text-sm text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 px-3 py-1 rounded-full">Jun 2024 – Nov 2025</span>
+                <div class="lang-en mt-3 text-gray-600 dark:text-gray-400">Coordinated workshops, competitions, community events; served as liaison.</div>
+                <div class="lang-ar mt-3 text-gray-600 dark:text-gray-400">تنسيق ورش عمل، مسابقات، فعاليات مجتمعية؛ سفير للنادي.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PROJECTS ========== -->
+    <section class="mt-20">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-bold inline-block border-b-4 border-blue-600 dark:border-cyan-400 pb-2 px-4 text-gray-900 dark:text-white">🛠️ Projects</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Vulnerability Assessment Lab -->
+        <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card">
+          <i class="fas fa-search text-3xl text-blue-600 dark:text-cyan-400 mb-3"></i>
+          <h3 class="font-bold text-lg text-gray-900 dark:text-white">Vulnerability Assessment Lab</h3>
+          <div class="lang-en text-sm text-gray-600 dark:text-gray-400 mt-2">Virtual environment with Nmap, Nessus; professional reporting.</div>
+          <div class="lang-ar text-sm text-gray-600 dark:text-gray-400 mt-2">بيئة افتراضية باستخدام Nmap و Nessus، إعداد تقارير احترافية.</div>
+          <div class="mt-3 flex flex-wrap">
+            <span class="skill-badge">Vuln Scan</span>
+            <span class="skill-badge">Report Writing</span>
+            <span class="skill-badge">Risk Analysis</span>
+          </div>
+        </div>
+        <!-- Secure Cloud Deployment -->
+        <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card">
+          <i class="fas fa-cloud-upload-alt text-3xl text-blue-600 dark:text-cyan-400 mb-3"></i>
+          <h3 class="font-bold text-lg text-gray-900 dark:text-white">Secure Cloud Deployment</h3>
+          <div class="lang-en text-sm text-gray-600 dark:text-gray-400 mt-2">AWS EC2, IAM roles, Security Groups, monitoring setup.</div>
+          <div class="lang-ar text-sm text-gray-600 dark:text-gray-400 mt-2">نشر سيرفر على AWS، إعداد IAM، مجموعات الأمان، مراقبة.</div>
+          <div class="mt-3 flex flex-wrap">
+            <span class="skill-badge">Cloud Security</span>
+            <span class="skill-badge">IAM</span>
+            <span class="skill-badge">Infrastructure</span>
+          </div>
+        </div>
+        <!-- SOC Simulation Lab -->
+        <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card">
+          <i class="fas fa-shield-alt text-3xl text-blue-600 dark:text-cyan-400 mb-3"></i>
+          <h3 class="font-bold text-lg text-gray-900 dark:text-white">SOC Simulation Lab</h3>
+          <div class="lang-en text-sm text-gray-600 dark:text-gray-400 mt-2">SIEM log analysis, suspicious activity detection, incident report.</div>
+          <div class="lang-ar text-sm text-gray-600 dark:text-gray-400 mt-2">تحليل سجلات SIEM، اكتشاف أنشطة مشبوهة، تقرير حادثة.</div>
+          <div class="mt-3 flex flex-wrap">
+            <span class="skill-badge">Log Analysis</span>
+            <span class="skill-badge">Incident Handling</span>
+            <span class="skill-badge">Threat Detection</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== EDUCATION ========== -->
+    <section class="mt-20">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-bold inline-block border-b-4 border-blue-600 dark:border-cyan-400 pb-2 px-4 text-gray-900 dark:text-white">🎓 Education</h2>
+      </div>
+      <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 hover-card">
+        <div class="flex items-center gap-4">
+          <i class="fas fa-graduation-cap text-4xl text-blue-600 dark:text-cyan-400"></i>
+          <div>
+            <h3 class="font-bold text-xl text-gray-900 dark:text-white">Ajloun National University</h3>
+            <div class="lang-en">
+              <p class="text-blue-600 dark:text-cyan-400 font-medium">Bachelor in Cyber Security & Cloud Computing</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Feb 2023 – 2026</p>
+              <p class="mt-2 text-gray-600 dark:text-gray-400">Network Security, Ethical Hacking, Cloud Computing, Linux/Windows Admin, Cryptography, Risk Management.</p>
+            </div>
+            <div class="lang-ar">
+              <p class="text-blue-600 dark:text-cyan-400 font-medium">بكالوريوس في الأمن السيبراني والحوسبة السحابية</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">فبراير ٢٠٢٣ – ٢٠٢٦</p>
+              <p class="mt-2 text-gray-600 dark:text-gray-400">أمن الشبكات، الاختراق الأخلاقي، الحوسبة السحابية، إدارة لينكس/ويندوز، التشفير، إدارة المخاطر.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CONTACT – مع زر PGP ========== -->
+    <section id="contact" class="mt-20">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-bold inline-block border-b-4 border-blue-600 dark:border-cyan-400 pb-2 px-4 text-gray-900 dark:text-white">📬 Contact</h2>
+      </div>
+      <div class="bg-gray-50 dark:bg-gray-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800">
+        <div class="flex flex-wrap gap-4 justify-center items-center">
+          <a href="mailto:ayham.megdadi@example.com" class="flex items-center gap-3 px-5 py-3 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-blue-50 dark:hover:bg-gray-800 transition shadow-md">
+            <i class="fas fa-envelope text-blue-600 dark:text-cyan-400 text-xl"></i>
+            <span class="lang-en text-gray-900 dark:text-gray-100">ayham.megdadi@example.com</span>
+            <span class="lang-ar text-gray-900 dark:text-gray-100">ayham.megdadi@example.com</span>
+          </a>
+          <a href="https://www.linkedin.com/in/ayham-megdadi" target="_blank" class="flex items-center gap-3 px-5 py-3 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-blue-50 dark:hover:bg-gray-800 transition">
+            <i class="fab fa-linkedin text-blue-600 dark:text-cyan-400 text-xl"></i> LinkedIn
+          </a>
+          <a href="https://github.com/Ayham-Megdadi" target="_blank" class="flex items-center gap-3 px-5 py-3 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-blue-50 dark:hover:bg-gray-800 transition">
+            <i class="fab fa-github text-blue-600 dark:text-cyan-400 text-xl"></i> GitHub
+          </a>
+          <a href="https://tryhackme.com/p/Ayhammegdadi" target="_blank" class="flex items-center gap-3 px-5 py-3 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-blue-50 dark:hover:bg-gray-800 transition">
+            <i class="fas fa-shield-haltered text-blue-600 dark:text-cyan-400 text-xl"></i> TryHackMe
+          </a>
+          <a href="#" id="pgp-download" class="flex items-center gap-3 px-5 py-3 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-blue-50 dark:hover:bg-gray-800 transition">
+            <i class="fas fa-lock text-blue-600 dark:text-cyan-400 text-xl"></i> PGP Key
+          </a>
+        </div>
+        <div class="mt-8 text-center text-sm text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-800 pt-6">
+          <i class="fas fa-lock text-blue-600 dark:text-cyan-400 mr-1"></i>
+          <span class="lang-en">Security researcher? <code>/.well-known/security.txt</code> – PGP key available.</span>
+          <span class="lang-ar">باحث أمني؟ <code>/.well-known/security.txt</code> – مفتاح PGP متاح.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="border-t border-gray-200 dark:border-gray-800 mt-16 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+    <p>© 2026 Ayham Megdadi — engineered for the cloud & secured by design</p>
+  </footer>
+
+  <!-- ========== CERTIFICATES DATA & RENDERER ========== -->
+  <script>
+    // ---------- 22 CERTIFICATES – كاملة مع أيقونات ----------
+    const certificates = [
+      { issuer: "Edraak", issuerAr: "إدراك", icon: "fa-graduation-cap", titleEn: "Introduction to Cybersecurity", titleAr: "مقدمة في الأمن السيبراني", dateEn: "May 2024", dateAr: "مايو ٢٠٢٤", skills: ["Cybersecurity Fundamentals","Types of Cyber Attacks","Cybercrime Awareness"] },
+      { issuer: "Jordan Cyber Club", issuerAr: "Jordan Cyber Club", icon: "fa-flag", titleEn: "Hack & Escape Event Ambassador", titleAr: "سفير فعالية Hack & Escape", dateEn: "Jul 2024", dateAr: "يوليو ٢٠٢٤", skills: ["Event Coordination","Teamwork","Cybersecurity Awareness","Community Engagement"] },
+      { issuer: "The Hope International Edu", issuerAr: "The Hope International Edu", icon: "fa-school", titleEn: "QA Software Testing", titleAr: "اختبار البرمجيات - ضمان الجودة", dateEn: "Feb 2025", dateAr: "فبراير ٢٠٢٥", skills: ["Test Planning","Manual Testing","SDLC","Quality Assurance"] },
+      { issuer: "The Hope International Edu", issuerAr: "The Hope International Edu", icon: "fa-school", titleEn: "Certified Ethical Hacker", titleAr: "اختراق أخلاقي معتمد", dateEn: "Feb 2025", dateAr: "فبراير ٢٠٢٥", skills: ["Penetration Testing","Vulnerability Assessment","Threat Analysis","Risk Management"] },
+      { issuer: "TryHackMe", issuerAr: "TryHackMe", icon: "fa-shield-haltered", titleEn: "Advent of Cyber 2023 (24 Challenges)", titleAr: "مغامرة السايبر ٢٠٢٣ - ٢٤ تحدياً", dateEn: "Jul 2025", dateAr: "يوليو ٢٠٢٥", skills: ["Hands-on Labs","Problem Solving","Practical Cyber Challenges"] },
+      { issuer: "Cisco", issuerAr: "Cisco", icon: "fa-network-wired", titleEn: "Linux Essentials", titleAr: "أساسيات لينكس", dateEn: "Oct 2025", dateAr: "أكتوبر ٢٠٢٥", skills: ["Linux Command Line","System Security","User/Permissions","File Management"] },
+      { issuer: "Oracle", issuerAr: "Oracle", icon: "fa-database", titleEn: "Oracle Certified Professional – Multicloud", titleAr: "محترف معتمد - متعدد السحب من Oracle", dateEn: "Jul 2025", dateAr: "يوليو ٢٠٢٥", skills: ["Multicloud Architecture","Cloud Integration","Oracle Cloud Infrastructure"] },
+      { issuer: "Oracle", issuerAr: "Oracle", icon: "fa-database", titleEn: "Oracle Certified Foundations Associate", titleAr: "أساسيات Oracle - Associate", dateEn: "Dec 2024", dateAr: "ديسمبر ٢٠٢٤", skills: ["Databases","IT Foundations","Oracle Technologies"] },
+      { issuer: "Cybrary", issuerAr: "Cybrary", icon: "fa-video", titleEn: "CySA+: Security Operations", titleAr: "CySA+: عمليات الأمن", dateEn: "Feb 2025", dateAr: "فبراير ٢٠٢٥", skills: ["Security Monitoring","SOC Fundamentals","Security Operations"] },
+      { issuer: "Cybrary", issuerAr: "Cybrary", icon: "fa-video", titleEn: "CySA+: Incident Response and Management", titleAr: "CySA+: الاستجابة للحوادث", dateEn: "Feb 2025", dateAr: "فبراير ٢٠٢٥", skills: ["Incident Response","Threat Management","Security Operations"] },
+      { issuer: "Crown Prince Foundation", issuerAr: "مؤسسة ولي العهد", icon: "fa-crown", titleEn: "Future Jobs Workshop", titleAr: "ورشة وظائف المستقبل", dateEn: "Dec 2024", dateAr: "ديسمبر ٢٠٢٤", skills: ["Emerging Technologies","Future of Work","Digital Skills"] },
+      { issuer: "Crown Prince Foundation", issuerAr: "مؤسسة ولي العهد", icon: "fa-crown", titleEn: "ChatGPT Workshop", titleAr: "ورشة ChatGPT", dateEn: "Nov 2024", dateAr: "نوفمبر ٢٠٢٤", skills: ["Artificial Intelligence","Digital Skills"] },
+      { issuer: "Cisco Networking Academy", issuerAr: "Cisco Networking Academy", icon: "fa-network-wired", titleEn: "Network Support and Security", titleAr: "دعم الشبكات والأمن", dateEn: "Sep 2024", dateAr: "سبتمبر ٢٠٢٤", skills: ["Network Security","Troubleshooting","Secure User Access","Basic Network Defense"] },
+      { issuer: "Broadcom", issuerAr: "Broadcom", icon: "fa-microchip", titleEn: "Cloud and Virtualization Concepts", titleAr: "مفاهيم السحابة والافتراضية", dateEn: "Nov 2024", dateAr: "نوفمبر ٢٠٢٤", skills: ["Public/Private/Hybrid Cloud","Virtualization","Cloud Computing"] },
+      { issuer: "OPSWAT Academy", issuerAr: "OPSWAT Academy", icon: "fa-hard-hat", titleEn: "Introduction to Critical Infrastructure Protection (ICIP)", titleAr: "مقدمة في حماية البنية التحتية الحيوية", dateEn: "Jul 2024 (exp. Jul 2025)", dateAr: "يوليو ٢٠٢٤ (تنتهي يوليو ٢٠٢٥)", skills: ["Critical Infrastructure Protection (CIP)"] },
+      { issuer: "NCSCJO", issuerAr: "NCSCJO", icon: "fa-shield", titleEn: "Cyber Warriors Training (CTF)", titleAr: "تدريب محاربو السيبر (CTF)", dateEn: "Jul 2024", dateAr: "يوليو ٢٠٢٤", skills: ["Network Security","Web Security","Threat Analysis","Problem Solving"] },
+      { issuer: "IBM SkillsBuild", issuerAr: "IBM SkillsBuild", icon: "fa-chart-simple", titleEn: "Data Fundamentals", titleAr: "أساسيات البيانات", dateEn: "Nov 2024", dateAr: "نوفمبر ٢٠٢٤", skills: ["Databases","Data Types","Data Analysis"] },
+      { issuer: "Cisco Networking Academy", issuerAr: "Cisco Networking Academy", icon: "fa-network-wired", titleEn: "Cyber Threat Management", titleAr: "إدارة التهديدات السيبرانية", dateEn: "Jul 2024", dateAr: "يوليو ٢٠٢٤", skills: ["Risk Management","Incident Response","Penetration Testing","Disaster Recovery"] },
+      { issuer: "Netriders Academy", issuerAr: "Netriders Academy", icon: "fa-code", titleEn: "Security+ SY0-601 Prep", titleAr: "تحضير Security+ SY0-601", dateEn: "Jul 2024", dateAr: "يوليو ٢٠٢٤", skills: ["Network Security","Risk Management","Incident Response","Cryptography"] },
+      { issuer: "Cisco Networking Academy", issuerAr: "Cisco Networking Academy", icon: "fa-network-wired", titleEn: "Introduction to Cybersecurity", titleAr: "مقدمة في الأمن السيبراني", dateEn: "Jun 2024", dateAr: "يونيو ٢٠٢٤", skills: ["Cyber Threats","Network Vulnerabilities","Cybersecurity Fundamentals"] },
+      { issuer: "NCSCJO", issuerAr: "NCSCJO", icon: "fa-shield", titleEn: "Cyber Warriors Competition Training", titleAr: "تدريب مسابقة محاربو السيبر", dateEn: "May 2023", dateAr: "مايو ٢٠٢٣", skills: ["Threat Analysis","Defense Strategies","Teamwork"] }
+    ];
+
+    let showingAll = false; // متغير عام لحالة عرض الشهادات
+
+    function renderCerts(showAll = false) {
+      const grid = document.getElementById('cert-grid');
+      if (!grid) return;
+      const isArabic = document.body.classList.contains('lang-ar');
+      const certsToShow = showAll ? certificates : certificates.slice(0, 6);
+      let html = '';
+      certsToShow.forEach(cert => {
+        const title = isArabic ? cert.titleAr : cert.titleEn;
+        const issuer = isArabic ? cert.issuerAr : cert.issuer;
+        const date = isArabic ? cert.dateAr : cert.dateEn;
+        const skills = cert.skills.map(s => `<span class="skill-badge">${s}</span>`).join('');
+        const icon = cert.icon || 'fa-certificate';
+        html += `
+          <div class="bg-gray-50 dark:bg-gray-900 p-5 rounded-xl border border-gray-200 dark:border-gray-800 hover-card flex flex-col">
+            <div class="flex items-start gap-3">
+              <i class="fas ${icon} text-2xl text-blue-600 dark:text-cyan-400 mt-1"></i>
+              <div class="flex-1">
+                <h3 class="font-bold text-base leading-tight text-gray-900 dark:text-white">${title}</h3>
+                <p class="text-sm text-blue-600 dark:text-cyan-400 mt-0.5">${issuer}</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">${date}</p>
+                <div class="flex flex-wrap mt-2 gap-1">${skills}</div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      grid.innerHTML = html;
+
+      // إخفاء زر "Show More" إذا تم عرض الكل
+      const showMoreBtn = document.getElementById('showMoreCerts');
+      if (showMoreBtn) {
+        if (showAll) {
+          showMoreBtn.style.display = 'none';
+        } else {
+          showMoreBtn.style.display = 'inline-flex';
+        }
+      }
+    }
+
+    // ---------- THEME & LANGUAGE ----------
+    (function() {
+      const html = document.documentElement;
+      const body = document.getElementById('app-body');
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = document.getElementById('themeIcon');
+      const langToggle = document.getElementById('langToggle');
+      const langLabel = document.getElementById('langLabel');
+
+      // ----- THEME: احترام تفضيل النظام أول مرة -----
+      let savedTheme = localStorage.getItem('theme');
+      if (!savedTheme) {
+        savedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      if (savedTheme === 'dark') {
+        html.classList.add('dark');
+        themeIcon.className = 'fas fa-sun text-lg text-gray-700 dark:text-gray-300';
+      } else {
+        html.classList.remove('dark');
+        themeIcon.className = 'fas fa-moon text-lg text-gray-700 dark:text-gray-300';
+      }
+
+      themeToggle.addEventListener('click', () => {
+        if (html.classList.contains('dark')) {
+          html.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+          themeIcon.className = 'fas fa-moon text-lg text-gray-700 dark:text-gray-300';
+        } else {
+          html.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+          themeIcon.className = 'fas fa-sun text-lg text-gray-700 dark:text-gray-300';
+        }
+      });
+
+      // ----- LANGUAGE -----
+      let currentLang = localStorage.getItem('lang') || 'en';
+      body.classList.remove('lang-en', 'lang-ar');
+      body.classList.add(`lang-${currentLang}`);
+      updateLangLabel(currentLang);
+      renderCerts(showingAll); // عرض الشهادات حسب الحالة الحالية
+
+      langToggle.addEventListener('click', () => {
+        let newLang = body.classList.contains('lang-en') ? 'ar' : 'en';
+        body.classList.remove('lang-en', 'lang-ar');
+        body.classList.add(`lang-${newLang}`);
+        localStorage.setItem('lang', newLang);
+        updateLangLabel(newLang);
+        html.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+        html.lang = newLang === 'ar' ? 'ar' : 'en';
+        renderCerts(showingAll); // إعادة رسم مع الحفاظ على حالة showAll
+      });
+
+      function updateLangLabel(lang) {
+        langLabel.innerText = lang === 'en' ? 'English' : 'العربية';
+      }
+
+      // تعيين الاتجاه الأولي
+      html.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+      html.lang = currentLang === 'ar' ? 'ar' : 'en';
+
+      // ----- زر إظهار المزيد من الشهادات -----
+      const showMoreBtn = document.getElementById('showMoreCerts');
+      if (showMoreBtn) {
+        showMoreBtn.addEventListener('click', () => {
+          showingAll = true;
+          renderCerts(true);
+        });
+      }
+
+      // ----- PGP Key Download (محتوى تجريبي) -----
+      const pgpBtn = document.getElementById('pgp-download');
+      if (pgpBtn) {
+        pgpBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          // استبدل هذا المحتوى بمفتاح PGP الحقيقي الخاص بك
+          const pgpContent = `-----BEGIN PGP PUBLIC KEY BLOCK-----\n\nmQINBF9... (your actual PGP key)\n-----END PGP PUBLIC KEY BLOCK-----`;
+          const blob = new Blob([pgpContent], { type: 'application/pgp-keys' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'ayham.asc';
+          a.click();
+          URL.revokeObjectURL(url);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
