@@ -3,33 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ayham Megdadi · Cybersecurity & Cloud Executive</title>
-
-  <!-- 
-    ═══════════════════════════════════════════════════════
-    🔐 SECURITY HEADERS – BEST PRACTICES (COMMENT ONLY)
-    ═══════════════════════════════════════════════════════
-    Content Security Policy: 
-      default-src 'self'; 
-      script-src 'unsafe-inline' cdn.tailwindcss.com cdnjs.cloudflare.com fonts.googleapis.com; 
-      style-src 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com cdn.tailwindcss.com;
-      font-src fonts.gstatic.com cdnjs.cloudflare.com;
-      img-src 'self' data: https:;
-    Strict-Transport-Security: max-age=31536000; includeSubDomains
-    X-Content-Type-Options: nosniff
-    Referrer-Policy: strict-origin-when-cross-origin
-    This portfolio is designed with OWASP secure headers in mind.
-  -->
-
-  <!-- Tailwind with dark mode class strategy -->
+  <meta name="description" content="Ayham Megdadi - Cybersecurity Executive Director specializing in strategic risk management, threat intelligence, and digital transformation. Discover insights and professional expertise">
+  <meta property="og:title" content="Ayham Megdadi | Cybersecurity Executive">
+  <meta property="og:image" content="link-to-your-image.jpg">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <link rel="icon" href="favicon.ico">
+  <title>Ayham Megdadi - Cybersecurity & Cloud Computing</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Fonts: Inter (EN) + Tajawal (AR) -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
   <style>
-    /* ---------- DARK MODE CUSTOM VARIABLES ---------- */
     :root {
       --accent-light: #2563eb;
       --accent-dark: #38bdf8;
@@ -43,11 +26,9 @@
       font-family: 'Inter', sans-serif;
       transition: background-color 0.2s, color 0.2s, border-color 0.2s;
     }
-    /* Arabic font */
     body.lang-ar {
       font-family: 'Tajawal', sans-serif;
     }
-    /* Skill badges – light/dark using custom properties */
     .skill-badge {
       background-color: var(--accent-soft-light);
       color: var(--accent-light);
@@ -71,7 +52,6 @@
     .dark .skill-badge:hover {
       border-color: var(--accent-dark);
     }
-    /* Timeline dot */
     .timeline-dot {
       width: 16px;
       height: 16px;
@@ -84,7 +64,6 @@
     .dark .timeline-dot {
       background-color: var(--accent-dark);
     }
-    /* Language toggle visibility */
     .lang-ar, .lang-en {
       transition: opacity 0.15s;
     }
@@ -99,7 +78,6 @@
     body.lang-ar {
       direction: rtl;
     }
-    /* Container */
     .container-custom {
       max-width: 1280px;
       margin-left: auto;
@@ -107,12 +85,10 @@
       padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
-    /* Navbar blur – using Tailwind classes for background, but keep backdrop */
     .sticky-nav {
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
-    /* Card hover */
     .hover-card {
       transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     }
@@ -124,7 +100,6 @@
     .dark .hover-card:hover {
       border-color: var(--accent-dark) !important;
     }
-    /* Toolstack icons */
     .tool-icon {
       display: inline-flex;
       align-items: center;
@@ -150,7 +125,6 @@
       background-color: var(--accent-dark);
       color: black;
     }
-    /* Terminal cursor */
     .cursor {
       display: inline-block;
       width: 2px;
@@ -849,3 +823,4 @@
   </script>
 </body>
 </html>
+
