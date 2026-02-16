@@ -22,6 +22,16 @@
   <meta property="profile:first_name" content="Ayham">
   <meta property="profile:last_name" content="Megdadi">
   <link rel="canonical" href="https://ayham-megdadi.github.io">
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
   <title>Ayham Megdadi - Cybersecurity & Cloud Computing</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
@@ -158,24 +168,23 @@
   </style>
 </head>
 <body class="bg-white text-gray-900 dark:bg-[#0b1120] dark:text-gray-100 lang-en" id="app-body">
-  <nav class="sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800 sticky-nav bg-white/70 dark:bg-[#0b1120]/70">
+  <div class="sr-only" id="language-announcer" aria-live="polite"></div>
+  <header class="sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800 sticky-nav bg-white/70 dark:bg-[#0b1120]/70">
     <div class="container-custom flex justify-between items-center py-4">
-      <div class="text-xl font-bold tracking-tight">
+      <a href="#" class="text-xl font-bold tracking-tight hover:opacity-80 transition" aria-label="الصفحة الرئيسية / Home">
         <span class="text-blue-600 dark:text-cyan-400">Ayham</span> Megdadi
-      </div>
+      </a>
       <div class="flex items-center gap-3">
-        <!-- Theme toggle -->
-        <button id="themeToggle" class="p-2 rounded-full hover:bg-blue-100 dark:hover:bg-gray-800 transition" aria-label="Toggle theme">
+        <button id="themeToggle" aria-label="Switch between dark and light mode" class="p-2 rounded-full hover:bg-blue-100 dark:hover:bg-gray-800 transition active:scale-95">
           <i id="themeIcon" class="fas fa-moon text-lg text-gray-700 dark:text-gray-300"></i>
         </button>
-        <!-- Language toggle -->
-        <button id="langToggle" class="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 bg-white/70 dark:bg-gray-900/70 text-sm font-medium hover:bg-blue-50 dark:hover:bg-gray-800 transition">
+        <button id="langToggle" aria-label="Switch between English and Arabic" class="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 bg-white/70 dark:bg-gray-900/70 text-sm font-medium hover:bg-blue-50 dark:hover:bg-gray-800 transition active:scale-95">
           <i class="fas fa-globe text-blue-600 dark:text-cyan-400"></i>
           <span id="langLabel" class="text-gray-900 dark:text-gray-100">English</span>
         </button>
       </div>
     </div>
-  </nav>
+  </header>
 
   <main class="container-custom py-8 md:py-12">
     <!-- ========== HERO SECTION with TERMINAL EFFECT ========== -->
@@ -836,6 +845,7 @@
   </script>
 </body>
 </html>
+
 
 
 
